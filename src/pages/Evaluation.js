@@ -1,0 +1,166 @@
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import Sidebar from '../components/Sidebar';
+import Header from '../components/Header';
+import GaugeChart from "react-gauge-chart";
+import CircularPercentageBar from "../components/CircularPercentageBar";
+const Evaluation = () => {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const [score, setScore] = useState(0);
+  const [seetitle,settitle] = useState('');
+  const [detail,setdata] = useState([]);
+  useEffect(() => {
+    const adminData = JSON.parse(localStorage.getItem('userData'));
+    if (!adminData) {
+      navigate('/login');
+    }
+  }, [navigate]);
+  const userId = JSON.parse(localStorage.getItem('userData')).id;
+  useEffect(() => {
+    const fetchQuizScore = async () => {
+      try {
+        const response = await fetch('https://eithi-aibackend.vercel.app/getQuizResults', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ quizId: id, userId: userId }), // Pass quizId and userId
+        });
+        const data = await response.json();
+        console.log(data);
+        setScore(data.score.totalScore);
+        setdata(data.attempts);
+        settitle(data.quizTitle)
+        //setLoading(false);
+      } catch (error) {
+        console.error('Error fetching quiz:', error);
+        //setLoading(false);
+      }
+    };
+
+    fetchQuizScore();
+  }, [id, userId]);
+
+  const calculatePercentage = (score) => {
+    return score; // Assuming score is out of 100, modify if needed
+  };
+
+  return (
+    <div>
+      <div className="flex h-screen bg-gray-100">
+        <Sidebar />
+        <div className="flex-1 flex flex-col overflow-auto">
+          <Header />
+          <section className="block evaluation px-[20px] py-[50px]">
+            <div className="container-xl">
+              <div className="flex flex-col w-full gap-[15px]">
+                <div className="flex justify-between w-full items-center">
+                  <h2 className="text-primary text-2xl sm:text-3xl font-bold">
+                    {seetitle}
+                  </h2>
+                  <button className="px-4 py-2 bg-primary text-white rounded">
+                    Download Report
+                  </button>
+                </div>
+              </div>
+              <div className="flex md:flex-row flex-col items-start gap-[20px] py-[30px]">
+                <div className="md:w-[80%] w-full flex flex-col gap-[20px] ">
+                  <div className="flex flex-col gap-[15px]">
+                    <div className="flex items-center gap-[10px]">
+                      <div className="cart h">
+                        <CircularPercentageBar
+                          value={score}
+                          pathColor="#14035f"
+                          textColor="#000"
+                        />
+                      </div>
+                      <p className="text-gray-600 text-[16px] font-[500] mb-6">
+                        Moderate Risk ({score}%) Characteristics: AI systems that
+                        have indirect implications on user rights or safety but
+                        are not directly categorized as high-risk.
+                      </p>
+                    </div>
+                    <div className="flex flex-col gap-[10px] pt-[10px]">
+                      <h4 className="text-[20px] border-b border-primary text-primary font-[600]">
+                        Prohibited Practices Recommendations
+                      </h4>
+                      <h5 className="text-[20px] font-[500] text-gray-700">
+                        Subliminal techniques
+                      </h5>
+                      <ul className="sublimal-ul">
+                        <li>
+                          <p>
+                            Sensory outputs designed to adjust user interactions
+                            based on system-generated recommendations could
+                            subtly guide user behavior, which increases the risk
+                            of manipulation or undue influence without explicit
+                            user understanding based on Recital 29.
+                          </p>
+                        </li>
+                        <li>
+                          <p>
+                            Limiting assessments to high-risk decisions may
+                            neglect less obvious but still harmful impacts on
+                            vulnerable populations, leading to exploitation and
+                            non-compliance with EU AI Act Article 5(1)(a).
+                          </p>
+                        </li>
+                      </ul>
+                    </div>
+                    <div className="flex flex-col gap-[10px] pt-[10px]">
+                      <h4 className="text-[20px] border-b border-primary text-primary font-[600]">
+                        Low risk
+                      </h4>
+                      <ul className="sublimal-ul">
+                        <li>
+                          <p>
+                            Low risk of your AI system following a prohibited
+                            practice, Manipulative AI techniques: Article
+                            5(1)(a)
+                          </p>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Gauge chart with fetched score */}
+                <div className="md:w-[20%] w-full">
+                  <div className="flex items-center justify-between">
+                    <div
+                      className="flex justify-center items-center flex-col gap-[10px]"
+                      style={{ width: "200px" }}
+                    >
+                     {detail.map((attempt, index) => (
+                        <div key={index} className="mb-4">
+                          {/* Render the GaugeChart with a dynamic id */}
+                          <GaugeChart
+                            id={`gauge-chart-${index}`} // Use a dynamic id based on index
+                            nrOfLevels={20}
+                            percent={calculatePercentage(attempt.totalScore)} // Pass attempt.totalScore to calculate percentage
+                            textColor="#0000"
+                          />
+
+                          {/* Render question details */}
+                          <p className="text-black font-semibold">Question {index + 1}: {attempt.text}</p>
+                          
+                          <p className="text-gray-600">Score: {attempt.totalScore}</p>
+                        </div>
+                      ))}
+
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Evaluation;
