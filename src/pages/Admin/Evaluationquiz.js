@@ -1,24 +1,24 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import Sidebar from '../components/Sidebar';
-import Header from '../components/Header';
+import Sidebar from '../../components/admin/Sidebar';
+import Header from '../../components/admin/Header';
 import GaugeChart from "react-gauge-chart";
-import CircularPercentageBar from "../components/CircularPercentageBar";
-const Evaluation = () => {
-  const { id } = useParams();
+import CircularPercentageBar from "../../components/admin/CircularPercentageBar";
+const Evaluationquiz = () => {
+  const { quizId, userId } = useParams();
   const navigate = useNavigate();
   const [score, setScore] = useState(0);
   const [seetitle,settitle] = useState('');
   const [scc,setsc] = useState('');
   const [detail,setdata] = useState([]);
   useEffect(() => {
-    const adminData = JSON.parse(localStorage.getItem('userData'));
+    const adminData = JSON.parse(localStorage.getItem('adminData'));
     if (!adminData) {
-      navigate('/login');
+      navigate('/admin/login');
     }
   }, [navigate]);
-  const userId = JSON.parse(localStorage.getItem('userData')).id;
+ 
   useEffect(() => {
     const fetchQuizScore = async () => {
       try {
@@ -27,7 +27,7 @@ const Evaluation = () => {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ quizId: id, userId: userId }), // Pass quizId and userId
+          body: JSON.stringify({ quizId: quizId, userId: userId }), // Pass quizId and userId
         });
         const data = await response.json();
         console.log(data);
@@ -43,7 +43,7 @@ const Evaluation = () => {
     };
 
     fetchQuizScore();
-  }, [id, userId]);
+  }, [quizId, userId]);
 
   const calculatePercentage = (score) => {
     return score; // Assuming score is out of 100, modify if needed
@@ -172,4 +172,4 @@ console.log(detail);
   );
 };
 
-export default Evaluation;
+export default Evaluationquiz;

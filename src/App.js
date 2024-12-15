@@ -17,6 +17,8 @@ import AdminLoginSection from './pages/AdminLogin';
 import AdminDashboard from './pages/Admin/Dashboard';
 import AdminQuiz from './pages/Admin/Quiz';
 import AdminUser from './pages/Admin/User';
+import AdminEvaluation from './pages/Admin/Evaluation';
+import AdminEvaluationquiz from './pages/Admin/Evaluationquiz';
 
 
 
@@ -34,6 +36,9 @@ function App()
           <Route path="/quiz" element={<Quiz />} />
           <Route path="/quizresults" element={<QuizResults />} />
           <Route path="/view-quiz/:id" element={<ViewQuiz />} />
+          <Route path="/admin/view-quiz/:id" element={<AdminEvaluation />} />
+          <Route path="/admin/viewquiz/:quizId/:userId" element={<AdminEvaluationquiz />} />
+
           <Route path="/support" element={<Support />} />
           <Route path="/subscription" element={<Subscription />} />
           <Route path="/profile" element={<Profile />} />

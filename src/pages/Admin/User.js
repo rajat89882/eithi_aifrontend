@@ -55,7 +55,7 @@ const User = () =>
 
     const handleViewQuiz = (documentId) =>
     {
-        navigate(`/view-quiz/${documentId}`);
+        navigate(`/admin/view-quiz/${documentId}`);
     };
 
     // const handleEditQuiz = (documentId: string) => {
