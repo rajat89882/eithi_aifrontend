@@ -42,7 +42,7 @@ function SignInForm() {
         };
         console.log(payloads);
         try {
-            const response = await fetch('https://eithi-aibackend.vercel.app/admin/login', {
+            const response = await fetch('http://localhost:3000/admin/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

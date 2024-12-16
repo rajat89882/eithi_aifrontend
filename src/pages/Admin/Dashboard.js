@@ -28,7 +28,7 @@ const Dashboard = () =>
         const fetchQuizzes = async () =>
         {
             try {
-                const response = await fetch('https://eithi-aibackend.vercel.app/admin/getallquiz', {
+                const response = await fetch('http://localhost:3000/admin/getallquiz', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -71,7 +71,7 @@ const Dashboard = () =>
         }
     
         try {
-            const response = await fetch('https://eithi-aibackend.vercel.app/admin/deletequiz', {
+            const response = await fetch('http://localhost:3000/admin/deletequiz', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -127,9 +127,9 @@ const Dashboard = () =>
                                         {/* <button className="p-1 text-secondary hover:text-primary" onClick={() => handleEditQuiz(quiz.documentId)}>
                                             <Edit size={20} />
                                         </button> */}
-                                        <button className="p-1 text-secondary hover:text-primary" onClick={() => handleViewQuiz(quiz.id)}>
+                                        {/* <button className="p-1 text-secondary hover:text-primary" onClick={() => handleViewQuiz(quiz.id)}>
                                             <Eye size={20} />
-                                        </button>
+                                        </button> */}
                                         <button className="p-1 text-primary hover:text-secondary rounded-full border-2 border-primary" onClick={() => handleDeleteQuiz(quiz.id)}>
                                             <Trash2 size={20} />
                                         </button>

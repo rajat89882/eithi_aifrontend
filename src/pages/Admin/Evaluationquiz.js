@@ -12,6 +12,7 @@ const Evaluationquiz = () => {
   const [seetitle,settitle] = useState('');
   const [scc,setsc] = useState('');
   const [detail,setdata] = useState([]);
+  const [outof,setoutof] = useState('');
   useEffect(() => {
     const adminData = JSON.parse(localStorage.getItem('adminData'));
     if (!adminData) {
@@ -22,7 +23,7 @@ const Evaluationquiz = () => {
   useEffect(() => {
     const fetchQuizScore = async () => {
       try {
-        const response = await fetch('https://eithi-aibackend.vercel.app/getQuizResults', {
+        const response = await fetch('http://localhost:3000/getQuizResults', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -34,7 +35,8 @@ const Evaluationquiz = () => {
         setScore(data.score.totalScore);
         setdata(data.attempts);
         setsc(data.score);
-        settitle(data.quizTitle)
+        settitle(data.quizTitle);
+        
         //setLoading(false);
       } catch (error) {
         console.error('Error fetching quiz:', error);
@@ -51,7 +53,8 @@ const Evaluationquiz = () => {
   const handleprint = () => {
     window.print();
   }
-console.log(detail);
+  console.log('jk');
+console.log(scc.percentageScore);
   return (
     <div>
       <div className="flex h-screen bg-gray-100">
@@ -149,7 +152,7 @@ console.log(detail);
                           <GaugeChart
                             id={`gauge-chart-`} // Use a dynamic id based on index
                             nrOfLevels={20}
-                            percent={calculatePercentage(scc.percentageScore)} // Pass attempt.totalScore to calculate percentage
+                            percent={scc.percentageScore} // Pass attempt.totalScore to calculate percentage
                             textColor="#0000"
                           />
 
@@ -157,6 +160,7 @@ console.log(detail);
                           <p className="text-black font-semibold">Question </p>
                           
                           <p className="text-gray-600">Score: {scc.totalScore}</p>
+                          <p className="text-gray-600">Out of Score: {scc.outOfScore}</p>
                         </div>
                      
                     </div>

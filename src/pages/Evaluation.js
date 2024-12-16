@@ -9,9 +9,9 @@ const Evaluation = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [score, setScore] = useState(0);
-  const [seetitle,settitle] = useState('');
-  const [scc,setsc] = useState('');
-  const [detail,setdata] = useState([]);
+  const [seetitle, settitle] = useState('');
+  const [scc, setsc] = useState('');
+  const [detail, setdata] = useState([]);
   useEffect(() => {
     const adminData = JSON.parse(localStorage.getItem('userData'));
     if (!adminData) {
@@ -22,7 +22,7 @@ const Evaluation = () => {
   useEffect(() => {
     const fetchQuizScore = async () => {
       try {
-        const response = await fetch('https://eithi-aibackend.vercel.app/getQuizResults', {
+        const response = await fetch('http://localhost:3000/getQuizResults', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -51,14 +51,14 @@ const Evaluation = () => {
   const handleprint = () => {
     window.print();
   }
-console.log(detail);
+  console.log(detail);
   return (
     <div>
       <div className="flex h-screen bg-gray-100">
         <div className='no-print'>
-        <Sidebar />
+          <Sidebar />
         </div>
-        
+
         <div className="flex-1 flex flex-col overflow-auto">
           <div className='no-print'>
             <Header />
@@ -75,19 +75,19 @@ console.log(detail);
                   </button>
                 </div>
               </div>
-              <div className="flex md:flex-row flex-col items-start gap-[20px] py-[30px]">
-                <div className="md:w-[80%] w-full flex flex-col gap-[20px] ">
+              <div className="flex md:flex-row flex-col items-start gap-[50px] py-[30px]">
+                <div className="md:w-[80%] w-full flex flex-col gap-[20px] pe-[80px]">
                   <div className="flex flex-col gap-[15px]">
                     <div className="flex items-center gap-[10px]">
                       <div className="cart h">
                         <CircularPercentageBar
-                          value={scc.percentageScore}
+                          value={Math.round(scc.percentageScore)}
                           pathColor="#14035f"
                           textColor="#000"
                         />
                       </div>
                       <p className="text-gray-600 text-[16px] font-[500] mb-6">
-                        Moderate Risk ({scc.percentageScore}%) Characteristics: AI systems that
+                        Moderate Risk ({Math.round(scc.percentageScore)}%) Characteristics: AI systems that
                         have indirect implications on user rights or safety but
                         are not directly categorized as high-risk.
                       </p>
@@ -143,22 +143,28 @@ console.log(detail);
                       className="flex justify-center items-center flex-col gap-[10px]"
                       style={{ width: "200px" }}
                     >
-                    
-                        <div className="mb-4">
-                          {/* Render the GaugeChart with a dynamic id */}
-                          <GaugeChart
-                            id={`gauge-chart-`} // Use a dynamic id based on index
-                            nrOfLevels={20}
-                            percent={calculatePercentage(scc.percentageScore)} // Pass attempt.totalScore to calculate percentage
-                            textColor="#0000"
-                          />
 
-                          {/* Render question details */}
-                          <p className="text-black font-semibold">Question </p>
-                          
-                          <p className="text-gray-600">Score: {scc.totalScore}</p>
-                        </div>
-                     
+                      <div className="mb-4">
+                        {/* Render the GaugeChart with a dynamic id */}
+
+
+                        <GaugeChart
+                          id="gauge-chart"
+                          nrOfLevels={20} // Number of segments
+                          percent={((scc.totalScore / scc.outOfScore) * 100) / 100}   // Value as a percentage (0.0 to 1.0)
+                          textColor="#000" // Color for the text
+                          colors={["#FF5F6D", "#FFC371"]} // Gradient colors
+                          arcWidth={0.3}  // Adjust arc width (optional)
+                          arcPadding={0.02} // Padding between arcs (optional)
+
+                        />
+                        {/* Render question details */}
+                        <p className="text-black text-center font-semibold">Question </p>
+
+                        <p className="text-gray-600 text-center">Score: {scc.totalScore}</p>
+                        <p className="text-gray-600 text-center">Out off: {scc.outOfScore}</p>
+                      </div>
+
                     </div>
                   </div>
                 </div>

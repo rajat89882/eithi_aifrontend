@@ -111,7 +111,7 @@ const Quiz = () =>
     };
     const submitQuiz = async () => {
         try {
-            const response = await fetch('https://eithi-aibackend.vercel.app/admin/quiz', {
+            const response = await fetch('http://localhost:3000/admin/quiz', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
