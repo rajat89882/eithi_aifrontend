@@ -64,7 +64,7 @@ function SignInForm() {
         if (isSignUp) {
             // Sign up logic
             try {
-                const response = await fetch('http://localhost:3000/register', {
+                const response = await fetch('https://eithi-aibackend.vercel.app/register', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -101,7 +101,7 @@ function SignInForm() {
             };
             console.log(payloads);
             try {
-                const response = await fetch('http://localhost:3000/login', {
+                const response = await fetch('https://eithi-aibackend.vercel.app/login', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

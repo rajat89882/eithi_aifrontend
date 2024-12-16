@@ -25,7 +25,7 @@ const ViewQuiz = () => {
     useEffect(() => {
         const fetchQuiz = async () => {
             try {
-                const response = await fetch('http://localhost:3000/admin/getquiz', {
+                const response = await fetch('https://eithi-aibackend.vercel.app/admin/getquiz', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -80,7 +80,7 @@ const ViewQuiz = () => {
         };
 
         try {
-            const response = await fetch('http://localhost:3000/submitQuiz', {
+            const response = await fetch('https://eithi-aibackend.vercel.app/submitQuiz', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

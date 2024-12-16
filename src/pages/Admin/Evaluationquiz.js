@@ -23,7 +23,7 @@ const Evaluationquiz = () => {
   useEffect(() => {
     const fetchQuizScore = async () => {
       try {
-        const response = await fetch('http://localhost:3000/getQuizResults', {
+        const response = await fetch('https://eithi-aibackend.vercel.app/getQuizResults', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

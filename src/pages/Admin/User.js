@@ -28,7 +28,7 @@ const User = () =>
         const fetchQuizzes = async () =>
         {
             try {
-                const response = await fetch('http://localhost:3000/admin/getalluser', {
+                const response = await fetch('https://eithi-aibackend.vercel.app/admin/getalluser', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -71,7 +71,7 @@ const User = () =>
         }
     
         try {
-            const response = await fetch('http://localhost:3000/admin/deleteuser', {
+            const response = await fetch('https://eithi-aibackend.vercel.app/admin/deleteuser', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

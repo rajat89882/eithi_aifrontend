@@ -28,7 +28,7 @@ const Evaluation = () =>
               const fetchQuizzes = async () =>
               {
                   try {
-                      const response = await fetch('http://localhost:3000/admin/getallquizuser', {
+                      const response = await fetch('https://eithi-aibackend.vercel.app/admin/getallquizuser', {
                           method: 'POST',
                           headers: {
                               'Content-Type': 'application/json',
