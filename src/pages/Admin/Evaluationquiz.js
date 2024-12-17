@@ -9,17 +9,17 @@ const Evaluationquiz = () => {
   const { quizId, userId } = useParams();
   const navigate = useNavigate();
   const [score, setScore] = useState(0);
-  const [seetitle,settitle] = useState('');
-  const [scc,setsc] = useState('');
-  const [detail,setdata] = useState([]);
-  const [outof,setoutof] = useState('');
+  const [seetitle, settitle] = useState('');
+  const [scc, setsc] = useState('');
+  const [detail, setdata] = useState([]);
+  const [outof, setoutof] = useState('');
   useEffect(() => {
     const adminData = JSON.parse(localStorage.getItem('adminData'));
     if (!adminData) {
       navigate('/admin/login');
     }
   }, [navigate]);
- 
+
   useEffect(() => {
     const fetchQuizScore = async () => {
       try {
@@ -36,7 +36,7 @@ const Evaluationquiz = () => {
         setdata(data.attempts);
         setsc(data.score);
         settitle(data.quizTitle);
-        
+
         //setLoading(false);
       } catch (error) {
         console.error('Error fetching quiz:', error);
@@ -54,14 +54,14 @@ const Evaluationquiz = () => {
     window.print();
   }
   console.log('jk');
-console.log(scc.percentageScore);
+  console.log(scc.percentageScore);
   return (
     <div>
       <div className="flex h-screen bg-gray-100">
         <div className='no-print'>
-        <Sidebar />
+          <Sidebar />
         </div>
-        
+
         <div className="flex-1 flex flex-col overflow-auto">
           <div className='no-print'>
             <Header />
@@ -146,23 +146,26 @@ console.log(scc.percentageScore);
                       className="flex justify-center items-center flex-col gap-[10px]"
                       style={{ width: "200px" }}
                     >
-                    
-                        <div className="mb-4">
-                          {/* Render the GaugeChart with a dynamic id */}
-                          <GaugeChart
-                            id={`gauge-chart-`} // Use a dynamic id based on index
-                            nrOfLevels={20}
-                            percent={scc.percentageScore} // Pass attempt.totalScore to calculate percentage
-                            textColor="#0000"
-                          />
 
-                          {/* Render question details */}
-                          <p className="text-black font-semibold">Question </p>
-                          
-                          <p className="text-gray-600">Score: {scc.totalScore}</p>
-                          <p className="text-gray-600">Out of Score: {scc.outOfScore}</p>
-                        </div>
-                     
+                      <div className="mb-4">
+                        {/* Render the GaugeChart with a dynamic id */}
+                        <GaugeChart
+                          id="gauge-chart"
+                          nrOfLevels={20} // Number of segments
+                          percent={((scc.totalScore / scc.outOfScore) * 100) / 100}   // Value as a percentage (0.0 to 1.0)
+                          textColor="#000" // Color for the text
+                          colors={["#FF5F6D", "#FFC371"]} // Gradient colors
+                          arcWidth={0.3}  // Adjust arc width (optional)
+                          arcPadding={0.02} // Padding between arcs (optional)
+
+                        />
+                        {/* Render question details */}
+                        <p className="text-black text-center font-semibold">Question </p>
+
+                        <p className="text-gray-600 text-center">Score: {scc.totalScore}</p>
+                        <p className="text-gray-600 text-center">Out off: {scc.outOfScore}</p>
+                      </div>
+
                     </div>
                   </div>
                 </div>

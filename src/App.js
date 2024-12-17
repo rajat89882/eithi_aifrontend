@@ -19,6 +19,7 @@ import AdminQuiz from './pages/Admin/Quiz';
 import AdminUser from './pages/Admin/User';
 import AdminEvaluation from './pages/Admin/Evaluation';
 import AdminEvaluationquiz from './pages/Admin/Evaluationquiz';
+import QuizEvaluation from './pages/QuizEvaluation';
 
 
 
@@ -34,6 +35,7 @@ function App()
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/evaluation/:id" element={<Evaluation />} />
           <Route path="/quiz" element={<Quiz />} />
+          <Route path="/quizevaluation" element={<QuizEvaluation />} />
           <Route path="/quizresults" element={<QuizResults />} />
           <Route path="/view-quiz/:id" element={<ViewQuiz />} />
           <Route path="/admin/view-quiz/:id" element={<AdminEvaluation />} />

@@ -54,6 +54,7 @@ const Evaluation = () => {
   console.log(detail);
   return (
     <div>
+
       <div className="flex h-screen bg-gray-100">
         <div className='no-print'>
           <Sidebar />
@@ -80,11 +81,27 @@ const Evaluation = () => {
                   <div className="flex flex-col gap-[15px]">
                     <div className="flex items-center gap-[10px]">
                       <div className="cart h">
-                        <CircularPercentageBar
-                          value={Math.round(scc.percentageScore)}
-                          pathColor="#14035f"
-                          textColor="#000"
-                        />
+                        <div style={{ position: 'relative', display: 'inline-block' }}>
+                          <CircularPercentageBar
+                            value={Math.round(scc.percentageScore)}
+                            pathColor="#14035f"
+                            textColor="transparent"
+                          />
+                          <div
+                            style={{
+                              position: 'absolute',
+                              top: '50%',
+                              left: '50%',
+                              transform: 'translate(-50%, -50%)',
+                              color: '#000',
+                              fontSize: '20px',
+                              fontWeight: '400',
+                            }}
+                          >
+                            {Math.round(scc.percentageScore)}%
+                          </div>
+                        </div>
+
                       </div>
                       <p className="text-gray-600 text-[16px] font-[500] mb-6">
                         Moderate Risk ({Math.round(scc.percentageScore)}%) Characteristics: AI systems that

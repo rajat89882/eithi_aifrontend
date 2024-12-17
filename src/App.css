@@ -62,3 +62,123 @@
 button {
     cursor: pointer;
 }
+.question-container {
+    background-color: #f9f9fc;
+    border-left: 4px solid #007bff; /* Add a border accent */
+    border-radius: 10px;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  }
+  
+  .question-container:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  .question-title {
+    font-size: 1.2rem;
+    color: #14035f;
+  }
+  
+  .answers-container {
+    margin-top: 20px;
+  }
+  
+  .answer-option {
+    padding: 10px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background: #ffffff;
+    transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+    display: flex;
+    align-items: center;
+  }
+  
+  .answer-option:hover {
+    background-color: #f1f5ff;
+    border-color: #007bff;
+  }
+  
+  .answer-label {
+    margin-left: 10px;
+    font-size: 1rem;
+    color: #333;
+  }
+  
+  .form-check-input {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    accent-color: #007bff; /* For modern browsers */
+    margin: 0 !important;
+  }
+  .quiz-header {
+    background: linear-gradient(135deg, #f9f9fc, #ffffff);
+    border-left: 5px solid #007bff; /* Border accent for separation */
+    border-radius: 10px;
+    padding: 20px 30px;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  }
+  
+  .quiz-header:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  .quiz-title {
+    font-size: 2rem;
+    color: #14035f;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  
+  .quiz-subtitle {
+    font-size: 1.1rem;
+    color: #6c757d; /* Muted gray color */
+    margin-bottom: 10px;
+  }
+  
+  .quiz-error {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #dc3545; /* Bootstrap Danger Color */
+  }
+  
+  .quiz-success {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #28a745; /* Bootstrap Success Color */
+  }
+  .quiz-item {
+    background-color: #f9f9fc;
+    border-left: 5px solid #007bff;
+    border-radius: 10px;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .quiz-item:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    transform: translateY(-3px);
+  }
+  
+  .quiz-title {
+    font-size: 1.25rem;
+    color: #14035f;
+    font-weight: 500 !important;
+
+  }
+  
+  .btn-outline-primary {
+    border: 2px solid #007bff;
+    color: #007bff;
+    width: 40px;
+    height: 40px;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .btn-outline-primary:hover {
+    color: #ffffff;
+    background-color: #007bff;
+    border-color: #0056b3;
+  }
+  

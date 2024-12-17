@@ -56,7 +56,7 @@ const Sidebar = () =>
                         <ul className="space-y-2 py-4">
                             <SidebarItem icon={<BarChart2 />} text="Dashboard" href="/dashboard" isOpen={isOpen} />
                             <SidebarItem icon={<List />} text="Quiz" href="/quiz" isOpen={isOpen} />
-                            <SidebarItem icon={<BarChart />} text="Evaluation" href="/evaluation" isOpen={isOpen} />
+                            <SidebarItem icon={<BarChart />} text="Evaluation" href="/quizevaluation" isOpen={isOpen} />
                             <SidebarItem icon={<MessageSquare />} text="Support and Updates" href="/support" isOpen={isOpen} />
                             <SidebarItem icon={<DollarSign />} text="Subscription" href="/subscription" isOpen={isOpen} />
                             <SidebarItem icon={<Settings />} text="Settings" href="/profile" isOpen={isOpen} />

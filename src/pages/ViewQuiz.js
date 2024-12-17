@@ -22,6 +22,10 @@ const ViewQuiz = () => {
         }
     }, [navigate]);
 
+
+
+
+
     useEffect(() => {
         const fetchQuiz = async () => {
             try {
@@ -94,9 +98,9 @@ const ViewQuiz = () => {
                 const errorData = await response.json();
                 setpaserror('Failed to submit quiz: ' + errorData.error);
             }
-            setTimeout(() => {
-                window.location.reload();
-            }, 3000);
+            // setTimeout(() => {
+            //     navigate('/quizevaluation');
+            // }, 3000);
         } catch (error) {
             console.error('Error submitting quiz:', error);
             setpaserror('An unexpected error occurred.');
@@ -128,20 +132,21 @@ const ViewQuiz = () => {
                 <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100 p-4 sm:p-6">
                     <div className="container mx-auto px-4 sm:px-6 py-4 sm:py-8">
                         <div className="container py-5">
-                            <div className="text-center mb-4">
-                                <h2 className="display-5">{quiz.title}</h2>
-                                <p className="text-muted">Test your knowledge with this quiz</p>
-                                <span className="text-danger">{paserror}</span>
-                                <span className="text-success">{success}</span>
+                            <div className="quiz-header text-center mb-4 py-4 rounded shadow-sm bg-light">
+                                <h2 className="quiz-title display-5 text-primary fw-bold">{quiz.title}</h2>
+                                <p className="quiz-subtitle text-muted mb-3">Test your knowledge with this quiz</p>
+                                {paserror && <span className="quiz-error text-danger d-block mb-2">{paserror}</span>}
+                                {success && <span className="quiz-success text-success d-block">{success}</span>}
                             </div>
 
-                            <div key={currentQuestion.id} className="mb-5">
-                                <h5 className="fw-bold">
+
+                            <div key={currentQuestion.id} className="question-container mb-5 p-4 rounded shadow-sm bg-light">
+                                <h5 className="question-title fw-bold mb-3 text-primary">
                                     {currentQuestionIndex + 1}. {currentQuestion.text}
                                 </h5>
-                                <div className="mt-3">
+                                <div className="answers-container">
                                     {currentQuestion.answers.map((answer) => (
-                                        <div key={answer.id} className="form-check">
+                                        <div key={answer.id} className="form-check answer-option mb-2">
                                             <input
                                                 className="form-check-input"
                                                 type={currentQuestion.questionType === 'Check Box' ? 'checkbox' : 'radio'}
@@ -156,7 +161,7 @@ const ViewQuiz = () => {
                                                 }
                                             />
                                             <label
-                                                className="form-check-label"
+                                                className="form-check-label answer-label"
                                                 htmlFor={`question-${currentQuestion.id}-answer-${answer.id}`}
                                             >
                                                 {answer.text}
@@ -165,6 +170,7 @@ const ViewQuiz = () => {
                                     ))}
                                 </div>
                             </div>
+
 
                             <div className="text-center mt-4">
                                 {currentQuestionIndex > 0 && (
