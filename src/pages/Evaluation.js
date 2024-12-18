@@ -106,7 +106,7 @@ const Evaluation = () => {
                       <div className="cart h">
                         <div style={{ position: 'relative', display: 'inline-block' }}>
                           <CircularPercentageBar
-                            value={Math.round(scc.percentageScore)}
+                            value={Math.round(scc.totalScore / TotalResult * 100)}
                             pathColor="#14035f"
                             textColor="transparent"
                           />
