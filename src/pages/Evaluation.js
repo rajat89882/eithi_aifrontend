@@ -33,7 +33,7 @@ const Evaluation = () => {
 
   const getTotalResult = async () => {
     try {
-      const response = await axios.post('https://eithi-aibackend.vercel.app/getQuiztotal', { id: id });
+      const response = await axios.post('http://localhost:3000/getQuiztotal', { id: id });
       if (response.data.status === 1) {
         setTotalResult(response.data.data);
       }
@@ -45,7 +45,7 @@ const Evaluation = () => {
   useEffect(() => {
     const fetchQuizScore = async () => {
       try {
-        const response = await fetch('https://eithi-aibackend.vercel.app/getQuizResults', {
+        const response = await fetch('http://localhost:3000/getQuizResults', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
