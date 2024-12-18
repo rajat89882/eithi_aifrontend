@@ -15,7 +15,7 @@ const Evaluation = () => {
   const [scc, setsc] = useState('');
   const [detail, setdata] = useState([]);
   const [TotalResult, setTotalResult] = useState('');
-  const [usermail , setUsermail] = useState('');
+  const [usermail, setUsermail] = useState('');
 
   useEffect(() => {
     const adminData = JSON.parse(localStorage.getItem('userData'));
@@ -123,12 +123,12 @@ const Evaluation = () => {
                               fontSize: '20px',
                               fontWeight: '400',
                             }}
-                          >
-                            {Math.round((scc.totalScore / TotalResult) * 100)}%
-           {Math.round(scc.totalScore / TotalResult * 100)}%
->>>>>>> fc0e01fab8ff5c84afbf334cfed6b0147f1bfa40
--[16px] font-[500] mb-6">
-                        Moderate Risk ({Math.round((scc.totalScore / TotalResult) * 100)}%) Characteristics: AI systems that
+                          >     {Math.round((scc.totalScore / TotalResult) * 100)}%
+                          </div>
+                        </div>
+                      </div>
+                      <p className="text-gray-600 text-[16px] font-[500] mb-6">
+                        Moderate Risk ({Math.round(scc.totalScore / TotalResult) * 100}%) Characteristics: AI systems that
                         have indirect implications on user rights or safety but
                         are not directly categorized as high-risk.
                       </p>
