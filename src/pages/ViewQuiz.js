@@ -90,12 +90,13 @@ const ViewQuiz = () => {
 
             if (response.ok) {
                 setsuccess('Quiz submitted successfully!');
+              
             } else {
                 const errorData = await response.json();
                 setpaserror('Failed to submit quiz: ' + errorData.error);
             }
             setTimeout(() => {
-                window.location.reload();
+                navigate('/quizevaluation');
             }, 3000);
         } catch (error) {
             console.error('Error submitting quiz:', error);
@@ -121,14 +122,14 @@ const ViewQuiz = () => {
     const currentQuestion = quiz.questions[currentQuestionIndex];
 
     return (
-        <div className="flex h-screen bg-gray-100">
+        <div className="flex h-screen bg-gray-900">
             <Sidebar />
             <div className="flex-1 flex flex-col overflow-hidden">
                 <Header />
-                <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100 p-4 sm:p-6">
+                <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-900 p-4 sm:p-6">
                     <div className="container mx-auto px-4 sm:px-6 py-4 sm:py-8">
                         <div className="container py-5">
-                        <div className="quiz-header text-center mb-4 py-4 rounded shadow-sm bg-light">
+                            <div className="quiz-header text-center mb-4 py-4 rounded shadow-sm bg-light">
                                 <h2 className="quiz-title display-5 text-primary fw-bold">{quiz.title}</h2>
                                 <p className="quiz-subtitle text-muted mb-3">Test your knowledge with this quiz</p>
                                 {paserror && <span className="quiz-error text-danger d-block mb-2">{paserror}</span>}

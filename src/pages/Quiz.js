@@ -41,7 +41,6 @@ const Quiz = () =>
                     });
                     const data = await response.json();
                     console.log(data);
-                    console.log('hj');
                     setQuizzes(data.result);
                 } catch (error) {
                    

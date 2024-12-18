@@ -41,7 +41,7 @@ const Sidebar = () => {
                     className={`fixed top-0 left-0 h-screen bg-gray-900 text-gray-200 border-r border-gray-800 flex flex-col transition-all duration-300 ease-in-out
           ${isMobile ? (isOpen ? 'w-64 translate-x-0' : 'w-64 -translate-x-full') : isOpen ? 'w-64' : 'w-16'}`}
                 >
-                    <div className="p-4 border-b border-gray-800 flex justify-between items-center">
+                    <div className="p-2 border-b border-gray-800 flex justify-between items-center">
                         {isOpen && <img src={logo} alt="Logo" className="w-32 h-auto" />}
                         <button onClick={toggleSidebar} className="p-2 rounded-md hover:bg-gray-700">
                             <Menu size={24} />

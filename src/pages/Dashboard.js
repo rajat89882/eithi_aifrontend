@@ -112,9 +112,7 @@ const Dashboard = () => {
                                         <button className="p-1 text-secondary hover:text-primary" onClick={() => handleViewQuiz(quiz.id)}>
                                             <Eye size={20} className="text-gray-300" />
                                         </button>
-                                        <button className="p-1 text-primary hover:text-secondary rounded-full border-2 border-primary" onClick={() => handleDeleteQuiz(quiz.id)}>
-                                            <Trash2 size={20} className="text-gray-300" />
-                                        </button>
+                                        
                                     </div>
                                 </div>
                             </div>

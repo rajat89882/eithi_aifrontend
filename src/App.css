@@ -182,3 +182,28 @@ button {
     border-color: #0056b3;
   }
   
+  @media print {
+    /* Prevent the sidebar from being hidden during print */
+    .sidebar {
+      display: block !important;
+    }
+  
+    /* Optionally, hide any elements that you don't want to print */
+    body * {
+      visibility: visible;
+    }
+  
+    /* Hide elements you don't need during printing */
+    .no-print {
+      display: none;
+    }
+    button.px-4.py-2.bg-primary.text-white.rounded{
+      display: none;
+    }
+    .print_name{
+      display: block !important;
+    }
+  }
+  .print_name{
+    display: none;
+  }

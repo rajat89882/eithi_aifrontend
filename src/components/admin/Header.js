@@ -36,14 +36,14 @@ const Header = () => {
     }, []);
 
     return (
-        <header className="hidden md:block bg-white shadow-sm z-10">
+        <header className="hidden md:block bg-gray-800 shadow-lg z-10">
             <div className="max-w-7xl mx-auto py-4 px-2 sm:px-4 lg:px-6 flex justify-between items-center">
                 {/* Search Bar */}
                 <div className="relative mr-4">
                     <input
                         type="text"
                         placeholder="Search"
-                        className="w-[400px] pl-10 pr-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-blue-500"
+                        className="w-[400px] pl-10 pr-4 py-2 border rounded-lg text-white bg-gray-700 focus:outline-none focus:border-blue-500"
                     />
                     <Search className="absolute left-3 top-2.5 text-gray-400" size={20} />
                 </div>
@@ -56,23 +56,23 @@ const Header = () => {
                         alt="User avatar"
                     />
                     <div className="flex flex-col ml-2">
-                        <span className="text-sm font-medium text-gray-700">Moni Roy</span>
-                        <span className="text-xs text-gray-500">Admin</span>
+                        <span className="text-sm font-medium text-white">Moni Roy</span>
+                        <span className="text-xs text-gray-400">Admin</span>
                     </div>
 
                     {/* Dropdown Toggle Icon */}
                     <button onClick={toggleDropdown} className="ml-2 focus:outline-none">
-                        <ChevronDown className="text-gray-500" />
+                        <ChevronDown className="text-gray-300" />
                     </button>
 
                     {/* Dropdown Menu */}
                     {isDropdownOpen && (
-                        <div className="absolute right-0 mt-12 w-48 bg-white rounded-lg shadow-lg z-20">
+                        <div className="absolute right-0 mt-12 w-48 bg-gray-800 rounded-lg shadow-lg z-20">
                             <ul className="py-2">
-                                <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Profile</li>
-                                <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Settings</li>
+                                <li className="px-4 py-2 text-white hover:bg-gray-700 cursor-pointer">Profile</li>
+                                <li className="px-4 py-2 text-white hover:bg-gray-700 cursor-pointer">Settings</li>
                                 <li
-                                    className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                                    className="px-4 py-2 text-red-500 hover:bg-gray-700 cursor-pointer"
                                     onClick={handleLogout}
                                 >
                                     Logout

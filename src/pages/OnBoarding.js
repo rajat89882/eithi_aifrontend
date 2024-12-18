@@ -141,7 +141,7 @@ const OnboardingScreen = () => {
         <li>Assistance to help the new provider fulfil their obligations under the Act.</li>
       </ul>
       <button
-        className="border border-primary p-4 cursor-pointer flex items-center space-x-2"
+        className="border-2 border-primary text-primary bg-transparent py-2 px-4 rounded-lg hover:bg-primary hover:text-white hover:shadow-lg hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
         onClick={() => setCurrentStep(2)}
       >
         Next
@@ -154,7 +154,7 @@ const OnboardingScreen = () => {
       <h2 className="text-xl font-bold text-primary mb-4">Out of scope</h2>
       <p className="mb-4">Your AI system appears to be out of scope for the EU AI Act.</p>
       <button
-        className="border border-primary p-4 cursor-pointer flex items-center space-x-2"
+        className="border-2 border-primary text-primary bg-transparent py-2 px-4 rounded-lg hover:bg-primary hover:text-white hover:shadow-lg hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
         onClick={() => navigate('/dashboard')}
       >
         Next
@@ -174,7 +174,7 @@ const OnboardingScreen = () => {
       </ul>
       <p className="mb-4">Also, consider whether the GPAI is used as, or a component of, an AI system. If so, obligations on high risk AI systems may apply directly or indirectly under Recital 85.</p>
       <button
-        className="border border-primary p-4 cursor-pointer flex items-center space-x-2"
+        className="border-2 border-primary text-primary bg-transparent py-2 px-4 rounded-lg hover:bg-primary hover:text-white hover:shadow-lg hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
         onClick={() => setCurrentStep(4)}
       >
         Next
@@ -218,14 +218,14 @@ const OnboardingScreen = () => {
   const renderNavigation = () => (
     <div className="flex justify-between mt-4">
       <button
-        className="border border-primary p-2 cursor-pointer"
+        className="border-2 border-primary text-primary bg-transparent py-2 px-4 rounded-lg hover:bg-primary hover:text-white hover:shadow-lg hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
         onClick={() => setCurrentStep(Math.max(0, currentStep - 1))}
         disabled={currentStep === 0}
       >
         Back
       </button>
       <button
-        className="border border-primary p-2 cursor-pointer"
+        className="border-2 border-primary text-primary bg-transparent py-2 px-4 rounded-lg hover:bg-primary hover:text-white hover:shadow-lg hover:scale-105 transition-all duration-300"
         onClick={() => {
           if (currentStep === questions.length - 1) {
             navigate('/dashboard');
@@ -237,6 +237,8 @@ const OnboardingScreen = () => {
         {currentStep === questions.length - 1 ? 'Finish' : 'Skip'}
       </button>
     </div>
+
+
   );
 
   return (
@@ -253,21 +255,21 @@ const OnboardingScreen = () => {
             renderGPAIObligations()
           ) : currentStep === 5 ? (
             renderProhibitedPracticesQuestion()
-          ) : 
-           currentStep === 9 ? (
-            renderProhibitedPracticesOptions()
-          ) :(
-            <>
-              <h2 className="text-xl font-bold text-primary mb-4">{questions[currentStep].question}</h2>
-              <MCQ
-                question=""
-                options={questions[currentStep].options}
-                selectedOption={selectedOptions[currentStep]}
-                setSelectedOption={handleSelectOption}
-              />
-              {renderNavigation()}
-            </>
-          )}
+          ) :
+            currentStep === 9 ? (
+              renderProhibitedPracticesOptions()
+            ) : (
+              <>
+                <h2 className="text-xl font-bold text-primary mb-4">{questions[currentStep].question}</h2>
+                <MCQ
+                  question=""
+                  options={questions[currentStep].options}
+                  selectedOption={selectedOptions[currentStep]}
+                  setSelectedOption={handleSelectOption}
+                />
+                {renderNavigation()}
+              </>
+            )}
         </div>
       </div>
     </div>

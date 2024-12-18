@@ -15,9 +15,11 @@ const Evaluation = () => {
   const [scc, setsc] = useState('');
   const [detail, setdata] = useState([]);
   const [TotalResult, setTotalResult] = useState('');
+  const [usermail , setUsermail] = useState('');
 
   useEffect(() => {
     const adminData = JSON.parse(localStorage.getItem('userData'));
+    setUsermail(adminData.email);
     if (!adminData) {
       navigate('/login');
     }
@@ -90,6 +92,7 @@ const Evaluation = () => {
                   <h2 className="text-primary text-2xl sm:text-3xl font-bold">
                     {seetitle}
                   </h2>
+                  <p className='print_name'>{usermail}</p>
                   <button
                     type="button"
                     onClick={handleprint}
@@ -106,7 +109,7 @@ const Evaluation = () => {
                       <div className="cart h">
                         <div style={{ position: 'relative', display: 'inline-block' }}>
                           <CircularPercentageBar
-                            value={Math.round(scc.percentageScore)}
+                            value={Math.round((scc.totalScore / TotalResult) * 100)}
                             pathColor="#14035f"
                             textColor="transparent"
                           />
@@ -121,12 +124,12 @@ const Evaluation = () => {
                               fontWeight: '400',
                             }}
                           >
-                            {Math.round(scc.percentageScore)}%
+                            {Math.round((scc.totalScore / TotalResult) * 100)}%
                           </div>
                         </div>
                       </div>
-                      <p className="text-gray-600 text-[16px] font-[500] mb-6">
-                        Moderate Risk ({scc.percentageScore}%) Characteristics: AI systems that
+                      <p className="text-white text-[16px] font-[500] mb-6">
+                        Moderate Risk ({Math.round((scc.totalScore / TotalResult) * 100)}%) Characteristics: AI systems that
                         have indirect implications on user rights or safety but
                         are not directly categorized as high-risk.
                       </p>
@@ -135,7 +138,7 @@ const Evaluation = () => {
                       <h4 className="text-[20px] border-b border-primary text-primary font-[600]">
                         Prohibited Practices Recommendations
                       </h4>
-                      <h5 className="text-[20px] font-[500] text-gray-700">
+                      <h5 className="text-[20px] font-[500] text-white">
                         Subliminal techniques
                       </h5>
                       <ul className="sublimal-ul">
