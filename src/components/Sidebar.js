@@ -3,19 +3,15 @@ import { Link, useLocation } from 'react-router-dom';
 import { BarChart2, List, BarChart, MessageSquare, DollarSign, Settings, LogOut, Menu } from 'lucide-react';
 import logo from '../assets/images/logo.png';
 
-const Sidebar = () =>
-{
+const Sidebar = () => {
     const [isOpen, setIsOpen] = useState(true);
     const [isMobile, setIsMobile] = useState(false);
 
-    useEffect(() =>
-    {
-        const checkMobile = () =>
-        {
+    useEffect(() => {
+        const checkMobile = () => {
             const isMobileScreen = window.innerWidth < 768;
             setIsMobile(isMobileScreen);
-            if (isMobileScreen)
-            {
+            if (isMobileScreen) {
                 setIsOpen(false); // Close sidebar by default on mobile
             }
         };
@@ -26,8 +22,7 @@ const Sidebar = () =>
         return () => window.removeEventListener('resize', checkMobile);
     }, []);
 
-    const toggleSidebar = () =>
-    {
+    const toggleSidebar = () => {
         setIsOpen(!isOpen);
     };
 
@@ -36,19 +31,19 @@ const Sidebar = () =>
             {isMobile && !isOpen && (
                 <button
                     onClick={toggleSidebar}
-                    className="fixed top-4 left-4 z-50 p-2 bg-white rounded-md shadow-md hover:bg-secondary"
+                    className="fixed top-4 left-4 z-50 p-2 bg-gray-800 text-gray-200 rounded-md shadow-md hover:bg-gray-700"
                 >
                     <Menu size={24} />
                 </button>
             )}
             <div className={`relative ${isMobile ? 'w-0' : isOpen ? 'w-64' : 'w-16'} transition-all duration-300 ease-in-out z-[100]`}>
                 <div
-                    className={`fixed top-0 left-0 h-screen bg-white border-r border-gray-200 flex flex-col transition-all duration-300 ease-in-out
+                    className={`fixed top-0 left-0 h-screen bg-gray-900 text-gray-200 border-r border-gray-800 flex flex-col transition-all duration-300 ease-in-out
           ${isMobile ? (isOpen ? 'w-64 translate-x-0' : 'w-64 -translate-x-full') : isOpen ? 'w-64' : 'w-16'}`}
                 >
-                    <div className="p-4 border-b border-gray-200 flex justify-between items-center">
+                    <div className="p-4 border-b border-gray-800 flex justify-between items-center">
                         {isOpen && <img src={logo} alt="Logo" className="w-32 h-auto" />}
-                        <button onClick={toggleSidebar} className="p-2 rounded-md hover:bg-secondary">
+                        <button onClick={toggleSidebar} className="p-2 rounded-md hover:bg-gray-700">
                             <Menu size={24} />
                         </button>
                     </div>
@@ -62,7 +57,7 @@ const Sidebar = () =>
                             <SidebarItem icon={<Settings />} text="Settings" href="/profile" isOpen={isOpen} />
                         </ul>
                     </nav>
-                    <div className="p-4 border-t border-gray-200">
+                    <div className="p-4 border-t border-gray-800">
                         <SidebarItem icon={<LogOut />} text="Logout" href="/logout" isOpen={isOpen} />
                     </div>
                 </div>
@@ -71,8 +66,7 @@ const Sidebar = () =>
     );
 };
 
-const SidebarItem = ({ icon, text, href, isOpen }) =>
-{
+const SidebarItem = ({ icon, text, href, isOpen }) => {
     const location = useLocation();
     const isActive = location.pathname === href;
 
@@ -80,11 +74,11 @@ const SidebarItem = ({ icon, text, href, isOpen }) =>
         <li className="list-none">
             <Link
                 to={href}
-                className={`flex items-center space-x-3 px-4 py-2 text-sm hover:bg-secondary ${isActive ? 'bg-primary text-white' : 'bg-white text-gray-700'
+                className={`flex items-center space-x-3 px-4 py-2 text-sm hover:bg-gray-700 ${isActive ? 'bg-gray-800 text-white' : 'bg-gray-900 text-gray-400'
                     }`}
             >
-                {React.cloneElement(icon, { className: `w-5 h-5 ${isActive ? 'text-white' : 'text-gray-700'}` })}
-                {isOpen && <span className={isActive ? 'text-white' : 'text-gray-700'}>{text}</span>}
+                {React.cloneElement(icon, { className: `w-5 h-5 ${isActive ? 'text-white' : 'text-gray-400'}` })}
+                {isOpen && <span className={isActive ? 'text-white' : 'text-gray-400'}>{text}</span>}
             </Link>
         </li>
     );

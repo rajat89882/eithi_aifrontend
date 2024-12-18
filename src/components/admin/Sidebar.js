@@ -57,7 +57,7 @@ const Sidebar = () =>
                             <SidebarItem icon={<BarChart2 />} text="Dashboard" href="/admin/dashboard" isOpen={isOpen} />
                             <SidebarItem icon={<List />} text="Quiz" href="/admin/quiz" isOpen={isOpen} />
                             <SidebarItem icon={<List />} text="User" href="/admin/user" isOpen={isOpen} />
-                            <SidebarItem icon={<BarChart />} text="Evaluation" href="/admin/evaluation" isOpen={isOpen} />
+                            <SidebarItem icon={<BarChart />} text="Evaluation" href="/admin/dashboard" isOpen={isOpen} />
                             <SidebarItem icon={<MessageSquare />} text="Support and Updates" href="#" isOpen={isOpen} />
                             <SidebarItem icon={<DollarSign />} text="Subscription" href="#" isOpen={isOpen} />
                             <SidebarItem icon={<Settings />} text="Settings" href="#" isOpen={isOpen} />

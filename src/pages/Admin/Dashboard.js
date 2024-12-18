@@ -6,13 +6,14 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 
-const Dashboard = () => {
+const Dashboard = () =>
+{
     const [quizzes, setQuizzes] = useState([]);
     const [paserror, setpaserror] = useState(''); // Password error message
     const [success, setsuccess] = useState('');
 
     const navigate = useNavigate();
-    useEffect(() => {
+    useEffect(()=>{
         const adminData = JSON.parse(localStorage.getItem('adminData'));
 
         // Check if the data exists
@@ -21,9 +22,11 @@ const Dashboard = () => {
         } else {
             navigate('/admin/login');
         }
-    }, []);
-    useEffect(() => {
-        const fetchQuizzes = async () => {
+    },[]);
+    useEffect(() =>
+    {
+        const fetchQuizzes = async () =>
+        {
             try {
                 const response = await fetch('https://eithi-aibackend.vercel.app/admin/getallquiz', {
                     method: 'POST',
@@ -38,18 +41,20 @@ const Dashboard = () => {
                 console.log(data);
                 setQuizzes(data.result);
             } catch (error) {
-
+               
             }
         };
 
         fetchQuizzes();
     }, []);
 
-    const handleCreateNewQuiz = () => {
+    const handleCreateNewQuiz = () =>
+    {
         navigate('/admin/quiz');
     };
 
-    const handleViewQuiz = (documentId) => {
+    const handleViewQuiz = (documentId) =>
+    {
         navigate(`/view-quiz/${documentId}`);
     };
 
@@ -60,11 +65,11 @@ const Dashboard = () => {
     const handleDeleteQuiz = async (documentId) => {
         // Show confirmation dialog before deleting
         const confirmed = window.confirm("Are you sure you want to delete this quiz? This action cannot be undone.");
-
+        
         if (!confirmed) {
             return; // If the user cancels, do nothing
         }
-
+    
         try {
             const response = await fetch('https://eithi-aibackend.vercel.app/admin/deletequiz', {
                 method: 'POST',
@@ -75,9 +80,9 @@ const Dashboard = () => {
                     id: documentId,
                 }),
             });
-
+            
             const data = await response.json();
-
+            
             if (response.ok) {
                 console.log('Quiz deleted successfully:', data);
                 setsuccess('Quiz deleted successfully');
@@ -87,13 +92,13 @@ const Dashboard = () => {
             }
             setTimeout(() => {
                 window.location.reload();
-            }, 3000);
+            }, 3000); 
         } catch (error) {
             console.error("Error during quiz deletion:", error);
             alert("An error occurred while deleting the quiz.");
         }
     };
-
+    
 
     return (
         <div className="flex h-screen bg-gray-100">
@@ -110,28 +115,28 @@ const Dashboard = () => {
                         </div>
                         <span className='text-danger'>{paserror}</span>
                         <span className='text-success'>{success}</span>
-
+                       
                         {quizzes.map((quiz) => (
-                            <div
-                                key={quiz.documentId}
-                                className="quiz-item bg-light border border-primary rounded p-4 mb-4 shadow-sm transition-all duration-300 hover:shadow-lg hover:translate-y-[-3px]"
-                            >
-                                <div className="d-flex flex-column flex-sm-row align-items-start align-items-sm-center justify-content-between">
-                                    <div className="d-flex align-items-center mb-3 mb-sm-0">
-                                        <h2 className="quiz-title text-primary text-lg fw-bold mb-0">{quiz.title}</h2>
+                            <div key={quiz.documentId} className="bg-white border-2 border-primary p-4 mb-4 shadow-sm">
+                                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between">
+                                    <div className="flex items-center space-x-4 mb-2 sm:mb-0">
+                                        {/* <input type="checkbox" className="form-checkbox h-5 w-5 text-indigo-600 border-gray-300 rounded" /> */}
+                                        <h2 className="text-lg font-medium text-gray-900">{quiz.title}</h2>
                                     </div>
-                                    <div className="d-flex gap-2">
-                                        <button
-                                            className="btn btn-outline-primary p-2 rounded-circle d-flex align-items-center justify-content-center"
-                                            onClick={() => handleDeleteQuiz(quiz.id)}
-                                        >
+                                    <div className="flex space-x-2">
+                                        {/* <button className="p-1 text-secondary hover:text-primary" onClick={() => handleEditQuiz(quiz.documentId)}>
+                                            <Edit size={20} />
+                                        </button> */}
+                                        {/* <button className="p-1 text-secondary hover:text-primary" onClick={() => handleViewQuiz(quiz.id)}>
+                                            <Eye size={20} />
+                                        </button> */}
+                                        <button className="p-1 text-primary hover:text-secondary rounded-full border-2 border-primary" onClick={() => handleDeleteQuiz(quiz.id)}>
                                             <Trash2 size={20} />
                                         </button>
                                     </div>
                                 </div>
                             </div>
                         ))}
-
                     </div>
                 </main>
             </div>

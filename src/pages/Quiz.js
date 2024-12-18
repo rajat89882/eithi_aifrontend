@@ -13,30 +13,7 @@ const Quiz = () =>
 
     const navigate = useNavigate();
 
-    useEffect(() =>
-        {
-            const fetchQuizzes = async () =>
-            {
-                try {
-                    const response = await fetch('https://eithi-aibackend.vercel.app/admin/getallquiz', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({
-                            name: '',
-                        }),
-                    });
-                    const data = await response.json();
-                    console.log(data);
-                    setQuizzes(data.result);
-                } catch (error) {
-                   
-                }
-            };
     
-            fetchQuizzes();
-        }, []);
     useEffect(()=>{
         const adminData = JSON.parse(localStorage.getItem('userData'));
 
@@ -47,7 +24,32 @@ const Quiz = () =>
             navigate('/login');
         }
     },[]);
-
+    useEffect(() =>
+        {
+            const fetchQuizzes = async () =>
+            {
+                const userId = JSON.parse(localStorage.getItem('userData')).id;
+                try {
+                    const response = await fetch('https://eithi-aibackend.vercel.app/admin/getallquizusers', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            userId: userId,
+                        }),
+                    });
+                    const data = await response.json();
+                    console.log(data);
+                    console.log('hj');
+                    setQuizzes(data.result);
+                } catch (error) {
+                   
+                }
+            };
+    
+            fetchQuizzes();
+        }, []);
     const handleCreateNewQuiz = () =>
     {
         navigate('/quiz');
@@ -67,13 +69,13 @@ const Quiz = () =>
     // };
 
     
-
+console.log(quizzes);
     return (
         <div className="flex h-screen bg-gray-100">
             <Sidebar />
             <div className="flex-1 flex flex-col overflow-hidden">
                 <Header />
-                <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100 p-4 sm:p-6">
+                <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-900 p-4 sm:p-6">
                     <div className="container mx-auto px-4 sm:px-6 py-4 sm:py-8">
                         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4">
                             <h3 className="text-primary text-2xl sm:text-3xl mt-12 lg:mt-0 font-bold mb-2 sm:mb-0">Attempt Quiz</h3>
@@ -98,26 +100,39 @@ const Quiz = () =>
                                 </div>
                             </div>
                         </div> */}
-                        {quizzes.map((quiz) => (
-                            <div key={quiz.documentId} className="bg-white border-2 border-primary p-4 mb-4 shadow-sm">
-                                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between">
-                                    <div className="flex items-center space-x-4 mb-2 sm:mb-0">
-                                        
-                                        <h2 className="text-lg font-medium text-gray-900">{quiz.title}</h2>
-                                    </div>
-                                    <div className="flex space-x-2">
-                                       
-                                        <button className="p-1 text-secondary hover:text-primary" onClick={() => handleViewScore(quiz.id)}>
-                                            View Score
-                                        </button>
-                                        <button className="p-1 text-secondary hover:text-primary" onClick={() => handleViewQuiz(quiz.id)}>
-                                            <Eye size={20} />
-                                        </button>
-                                        
+                        {quizzes.length > 0 ? (
+                            quizzes.map((quiz) => (
+                                <div
+                                    key={quiz.id}
+                                    className="bg-gray-800 border-2 border-primary p-4 mb-4 shadow-sm rounded-xl"
+                                >
+                                    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between">
+                                        <div className="flex items-center space-x-4 mb-2 sm:mb-0">
+                                            <h2 className="text-lg font-medium text-white">{quiz.title}</h2>
+                                        </div>
+                                        <div className="flex space-x-2">
+                                            <button
+                                                className="p-1 text-white hover:text-primary"
+                                                onClick={() => handleViewScore(quiz.id)}
+                                            >
+                                                View Score
+                                            </button>
+                                            <button
+                                                className="p-1 text-white hover:text-primary"
+                                                onClick={() => handleViewQuiz(quiz.id)}
+                                            >
+                                                <Eye size={20} />
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
+                            ))
+                        ) : (
+                            <div className="text-center text-gray-600 mt-4">
+                                No quizzes available at the moment.
                             </div>
-                        ))}
+                        )}
+
                     </div>
                 </main>
             </div>

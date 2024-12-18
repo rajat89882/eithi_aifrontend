@@ -5,6 +5,8 @@ import Sidebar from '../components/Sidebar';
 import Header from '../components/Header';
 import GaugeChart from "react-gauge-chart";
 import CircularPercentageBar from "../components/CircularPercentageBar";
+import axios from 'axios';
+
 const Evaluation = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -12,13 +14,32 @@ const Evaluation = () => {
   const [seetitle, settitle] = useState('');
   const [scc, setsc] = useState('');
   const [detail, setdata] = useState([]);
+  const [TotalResult, setTotalResult] = useState('');
+
   useEffect(() => {
     const adminData = JSON.parse(localStorage.getItem('userData'));
     if (!adminData) {
       navigate('/login');
     }
   }, [navigate]);
+
   const userId = JSON.parse(localStorage.getItem('userData')).id;
+
+  useEffect(() => {
+    getTotalResult();
+  }, [id]);
+
+  const getTotalResult = async () => {
+    try {
+      const response = await axios.post('https://eithi-aibackend.vercel.app/getQuiztotal', { id: id });
+      if (response.data.status === 1) {
+        setTotalResult(response.data.data);
+      }
+    } catch (error) {
+      console.log('Error in gettotal!');
+    }
+  };
+
   useEffect(() => {
     const fetchQuizScore = async () => {
       try {
@@ -30,15 +51,13 @@ const Evaluation = () => {
           body: JSON.stringify({ quizId: id, userId: userId }), // Pass quizId and userId
         });
         const data = await response.json();
-        console.log(data);
         setScore(data.score.totalScore);
         setdata(data.attempts);
         setsc(data.score);
-        settitle(data.quizTitle)
-        //setLoading(false);
+        settitle(data.quizTitle);
       } catch (error) {
         console.error('Error fetching quiz:', error);
-        //setLoading(false);
+        navigate('/quiz');
       }
     };
 
@@ -48,14 +67,14 @@ const Evaluation = () => {
   const calculatePercentage = (score) => {
     return score; // Assuming score is out of 100, modify if needed
   };
+
   const handleprint = () => {
     window.print();
-  }
-  console.log(detail);
-  return (
-    <div>
+  };
 
-      <div className="flex h-screen bg-gray-100">
+  return (
+    <div className="dark:bg-gray-900 dark:text-white">
+      <div className="flex h-screen">
         <div className='no-print'>
           <Sidebar />
         </div>
@@ -71,13 +90,17 @@ const Evaluation = () => {
                   <h2 className="text-primary text-2xl sm:text-3xl font-bold">
                     {seetitle}
                   </h2>
-                  <button type="button" onClick={handleprint} className="px-4 py-2 bg-primary text-white rounded">
+                  <button
+                    type="button"
+                    onClick={handleprint}
+                    className="px-4 py-2 bg-primary text-white rounded"
+                  >
                     Download Report
                   </button>
                 </div>
               </div>
-              <div className="flex md:flex-row flex-col items-start gap-[50px] py-[30px]">
-                <div className="md:w-[80%] w-full flex flex-col gap-[20px] pe-[80px]">
+              <div className="flex md:flex-row flex-col items-start gap-[20px] py-[30px]">
+                <div className="md:w-[80%] w-full flex flex-col gap-[20px] pe-[70px]">
                   <div className="flex flex-col gap-[15px]">
                     <div className="flex items-center gap-[10px]">
                       <div className="cart h">
@@ -93,7 +116,7 @@ const Evaluation = () => {
                               top: '50%',
                               left: '50%',
                               transform: 'translate(-50%, -50%)',
-                              color: '#000',
+                              color: '#fff',
                               fontSize: '20px',
                               fontWeight: '400',
                             }}
@@ -101,10 +124,9 @@ const Evaluation = () => {
                             {Math.round(scc.percentageScore)}%
                           </div>
                         </div>
-
                       </div>
                       <p className="text-gray-600 text-[16px] font-[500] mb-6">
-                        Moderate Risk ({Math.round(scc.percentageScore)}%) Characteristics: AI systems that
+                        Moderate Risk ({scc.percentageScore}%) Characteristics: AI systems that
                         have indirect implications on user rights or safety but
                         are not directly categorized as high-risk.
                       </p>
@@ -153,35 +175,26 @@ const Evaluation = () => {
                   </div>
                 </div>
 
-                {/* Gauge chart with fetched score */}
                 <div className="md:w-[20%] w-full">
                   <div className="flex items-center justify-between">
                     <div
                       className="flex justify-center items-center flex-col gap-[10px]"
                       style={{ width: "200px" }}
                     >
-
                       <div className="mb-4">
-                        {/* Render the GaugeChart with a dynamic id */}
-
-
                         <GaugeChart
                           id="gauge-chart"
-                          nrOfLevels={20} // Number of segments
-                          percent={((scc.totalScore / scc.outOfScore) * 100) / 100}   // Value as a percentage (0.0 to 1.0)
-                          textColor="#000" // Color for the text
-                          colors={["#FF5F6D", "#FFC371"]} // Gradient colors
-                          arcWidth={0.3}  // Adjust arc width (optional)
-                          arcPadding={0.02} // Padding between arcs (optional)
-
+                          nrOfLevels={20}
+                          percent={((scc.totalScore / TotalResult) * 100) / 100}
+                          textColor="#fff" // Change text color for dark mode
+                          colors={["#FF5F6D", "#FFC371"]}
+                          arcWidth={0.3}
+                          arcPadding={0.02}
                         />
-                        {/* Render question details */}
-                        <p className="text-black text-center font-semibold">Question </p>
-
-                        <p className="text-gray-600 text-center">Score: {scc.totalScore}</p>
-                        <p className="text-gray-600 text-center">Out off: {scc.outOfScore}</p>
+                        <p className="text-white text-center font-semibold">Question</p>
+                        <p className="text-white text-center">Score: {scc.totalScore}</p>
+                        <p className="text-white text-center">Out off: {TotalResult}</p>
                       </div>
-
                     </div>
                   </div>
                 </div>

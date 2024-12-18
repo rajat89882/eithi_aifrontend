@@ -35,12 +35,11 @@ function App()
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/evaluation/:id" element={<Evaluation />} />
           <Route path="/quiz" element={<Quiz />} />
-          <Route path="/quizevaluation" element={<QuizEvaluation />} />
           <Route path="/quizresults" element={<QuizResults />} />
           <Route path="/view-quiz/:id" element={<ViewQuiz />} />
           <Route path="/admin/view-quiz/:id" element={<AdminEvaluation />} />
           <Route path="/admin/viewquiz/:quizId/:userId" element={<AdminEvaluationquiz />} />
-
+          <Route path="/quizevaluation" element={<QuizEvaluation />} />
           <Route path="/support" element={<Support />} />
           <Route path="/subscription" element={<Subscription />} />
           <Route path="/profile" element={<Profile />} />

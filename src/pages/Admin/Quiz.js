@@ -102,7 +102,6 @@ const Quiz = () =>
     
     const simulatePostQuiz = () =>
     {
-      
         //navigate('/ViewQuiz');
         console.log('Quiz Data:', {
             title: quizTitle,
@@ -246,6 +245,7 @@ const Quiz = () =>
                                                     onChange={(e) => handleAnswerChange(question.id, answerIndex, 'riskScore', Number(e.target.value))}
                                                     placeholder="Risk Score"
                                                     className="w-24 p-2 border border-primary"
+                                                    disabled={question.QuestionType === 'Check Box'}
                                                 />
                                                 <input
                                                     type="text"

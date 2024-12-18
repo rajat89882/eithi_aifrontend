@@ -22,7 +22,18 @@ const Evaluation = () =>
       const { id } = useParams();
   
       const navigate = useNavigate();
-  console.log('test');
+  
+    useEffect(()=>{
+        const adminData = JSON.parse(localStorage.getItem('adminData'));
+
+        // Check if the data exists
+        if (adminData) {
+            console.log(adminData);  // This will log the data object
+        } else {
+            navigate('/admin/login');
+        }
+    },[]);
+    console.log(id);
       useEffect(() =>
           {
               const fetchQuizzes = async () =>
@@ -38,28 +49,28 @@ const Evaluation = () =>
                           }),
                       });
                       const data = await response.json();
-                      console.log(data);
-                      setQuizzes(data.result);
-                      if(data.result.length > 0){
-                        setusername(data.result[0]);
-                      }
+                      
+                    if (data.status === '0') {
+                        console.log(data.status);
+                        console.log(data.result?.message || 'No message');
+                        alert(data.message || 'Something went wrong');
+                        navigate('/admin/user');
+                    } else {
+                        setQuizzes(data.result);
+                        if (data.result.length > 0) {
+                            setusername(data.result[0]);
+                        }
+                    }
+                    
+                      
                   } catch (error) {
                      
                   }
               };
       
               fetchQuizzes();
-          }, []);
-      useEffect(()=>{
-          const adminData = JSON.parse(localStorage.getItem('adminData'));
-  
-          // Check if the data exists
-          if (adminData) {
-              console.log(adminData);  // This will log the data object
-          } else {
-              navigate('/admin/login');
-          }
-      },[]);
+          }, [id]);
+      
   
       const handleCreateNewQuiz = () =>
       {
