@@ -121,7 +121,7 @@ const Evaluation = () => {
                               fontWeight: '400',
                             }}
                           >
-                            {Math.round(scc.percentageScore)}%
+                            {Math.round(scc.totalScore / TotalResult * 100)}%
                           </div>
                         </div>
                       </div>
