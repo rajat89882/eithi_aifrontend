@@ -33,7 +33,7 @@ const Evaluation = () => {
 
   const getTotalResult = async () => {
     try {
-      const response = await axios.post('http://localhost:3000/getQuiztotal', { id: id });
+      const response = await axios.post('https://eithi-aibackend.vercel.app/getQuiztotal', { id: id });
       if (response.data.status === 1) {
         setTotalResult(response.data.data);
       }
@@ -45,7 +45,7 @@ const Evaluation = () => {
   useEffect(() => {
     const fetchQuizScore = async () => {
       try {
-        const response = await fetch('http://localhost:3000/getQuizResults', {
+        const response = await fetch('https://eithi-aibackend.vercel.app/getQuizResults', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -125,10 +125,9 @@ const Evaluation = () => {
                             }}
                           >
                             {Math.round((scc.totalScore / TotalResult) * 100)}%
-                          </div>
-                        </div>
-                      </div>
-                      <p className="text-white text-[16px] font-[500] mb-6">
+           {Math.round(scc.totalScore / TotalResult * 100)}%
+>>>>>>> fc0e01fab8ff5c84afbf334cfed6b0147f1bfa40
+-[16px] font-[500] mb-6">
                         Moderate Risk ({Math.round((scc.totalScore / TotalResult) * 100)}%) Characteristics: AI systems that
                         have indirect implications on user rights or safety but
                         are not directly categorized as high-risk.
