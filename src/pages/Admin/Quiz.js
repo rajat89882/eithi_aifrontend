@@ -224,6 +224,20 @@ const Quiz = () => {
                                                     className="w-24 p-2 border border-gray-500 bg-gray-600 text-white"
                                                     
                                                 />
+                                                 <input
+                                                    type="text"
+                                                    value={answer.gaps}
+                                                    onChange={(e) => handleAnswerChange(question.id, answerIndex, 'gaps', e.target.value)}
+                                                    placeholder="Gaps"
+                                                    className="w-40 p-2 border border-gray-500 bg-gray-600 text-white"
+                                                />
+                                                <input
+                                                    type="text"
+                                                    value={answer.recommendation}
+                                                    onChange={(e) => handleAnswerChange(question.id, answerIndex, 'recommendation', e.target.value)}
+                                                    placeholder="Recommendation"
+                                                    className="w-40 p-2 border border-gray-500 bg-gray-600 text-white"
+                                                />
                                                 <button
                                                     className="text-red-500 hover:text-red-600"
                                                     onClick={() => deleteAnswerOption(question.id, answerIndex)}
