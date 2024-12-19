@@ -59,7 +59,6 @@ const Evaluation = () => {
         settitle(data.quizTitle);
       } catch (error) {
         console.error('Error fetching quiz:', error);
-        navigate('/quiz');
       }
     };
 
@@ -127,7 +126,7 @@ const Evaluation = () => {
                           </div>
                         </div>
                       </div>
-                      <p className="text-gray-600 text-[16px] font-[500] mb-6">
+                      <p className="text-white text-[16px] font-[500] mb-6">
                         Moderate Risk ({Math.round(scc.totalScore / TotalResult) * 100}%) Characteristics: AI systems that
                         have indirect implications on user rights or safety but
                         are not directly categorized as high-risk.
